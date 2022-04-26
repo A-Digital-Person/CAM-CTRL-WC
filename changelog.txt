@@ -2,3 +2,6 @@
 Started project
 Wrote some code that should move the robot forward stop and move again.
 Started working on a data mangement system.
+
+4/26/22
+Work on imaging processing system.
