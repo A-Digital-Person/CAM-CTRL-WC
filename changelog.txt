@@ -1,2 +1,3 @@
-4/25/22
-Start Project
+Edit chagelog here: https://github.com/A-Digital-Person/CAM-CTRL-WC/blob/gh-pages/changelog.txt
+
+View chagelog here: https://a-digital-person.github.io/CAM-CTRL-WC/
