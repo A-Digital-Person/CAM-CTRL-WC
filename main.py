@@ -21,3 +21,20 @@ def logerror(msg):
     pass
 
 def loginfo(msg):
+    pass
+
+def estop():
+    pass
+
+def testbuttin(din, state):
+    if state == 'down':
+        if din == True:
+            output = True
+        else:
+            output = False
+    elif state == 'up':
+        if din == False:
+            output = True
+        else:
+            output =  False
+    return output
