@@ -1,6 +1,7 @@
 4/27/22
 Starting building the bot.
 Writing functions that can be used in the future final code.
+Decuess how the movement system will work.
 
 4/26/22
 Work on imaging processing system.
