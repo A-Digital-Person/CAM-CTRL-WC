@@ -26,7 +26,7 @@ def loginfo(msg):
 def estop():
     pass
 
-def testbuttin(din, state):
+def testbutton(din, state):
     if state == 'down':
         if din == True:
             output = True
