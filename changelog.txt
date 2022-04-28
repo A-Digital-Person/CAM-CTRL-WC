@@ -1,3 +1,7 @@
+4/28/22
+Wrote the directions in the code "path" button.
+Build team worked on base.
+
 4/27/22
 Starting building the bot.
 Writing functions that can be used in the future final code.
