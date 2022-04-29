@@ -1,3 +1,8 @@
+4/29/22
+Build more of the bot.
+Programmed in logging functions.
+Started on the camera and image code.
+
 4/28/22
 Wrote the directions in the code "path" button.
 Build team worked on base.
