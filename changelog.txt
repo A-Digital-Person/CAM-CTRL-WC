@@ -1,3 +1,8 @@
+5/2/22
+Added some comments to the source so it is easier to read.
+Bot was built more.
+Writing the camera finding script.
+
 4/29/22
 Build more of the bot.
 Programmed in logging functions.
