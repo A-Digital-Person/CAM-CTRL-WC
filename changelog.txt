@@ -1,5 +1,8 @@
 5/3/22
 Scrapped the tk windoes. (Too difficult to do without a mouse)
+Camera detection should be working.
+Tail calculation started.
+Bot nearing completion.
 
 5/2/22
 Added some comments to the source so it is easier to read.
