@@ -1,3 +1,6 @@
+5/3/22
+Scrapped the tk windoes. (Too difficult to do without a mouse)
+
 5/2/22
 Added some comments to the source so it is easier to read.
 Bot was built more.
