@@ -1,3 +1,9 @@
+5/4/22
+Got the color capturing system (in theory) done.
+Get the tail done (also in theory).
+Bot is finished.
+Added comments to the source.
+
 5/3/22
 Scrapped the tk windoes. (Too difficult to do without a mouse)
 Camera detection should be working.
