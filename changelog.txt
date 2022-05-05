@@ -1,7 +1,11 @@
+5/5/22
+Wireing bot
+Clean some code.
+
 5/4/22
 Got the color capturing system (in theory) done.
 Got the tail done (also in theory).
-Bot is finished.
+Bot is finished being build, still needs wired.
 Added comments to the source.
 
 5/3/22
