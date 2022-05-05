@@ -82,7 +82,7 @@ def estop():
         leftM.run(hat.RELEASE)
         rightM.run(hat.RELEASE)
     except:
-        logwarn('Something went worng. Be carefull!') #If something goes wrong in the motors let the user know to be carefull | Motors should not ever move
+        logwarn('Something went wrong. Be carefull!') #If something goes wrong in the motors let the user know to be carefull | Motors should not ever move
         estop()
 
 #Checks the state of a button and returns the output
@@ -161,33 +161,33 @@ def tail():
     cv2.circle(frame,(int(tailpoints[0][0]),int(tailpoints[0][1])),10,(255,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[1][0]),int(tailpoints[1][1])),12,(0,0,0),-1) #Starts the 'tail' part
-    cv2.circle(frame,(int(tailpoints[1][0]),int(tailpoints[1][1])),10,(200,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[1][0]),int(tailpoints[1][1])),10,(220,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[2][0]),int(tailpoints[2][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[2][0]),int(tailpoints[2][1])),10,(190,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[2][0]),int(tailpoints[2][1])),10,(200,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[3][0]),int(tailpoints[3][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[3][0]),int(tailpoints[3][1])),10,(180,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[3][0]),int(tailpoints[3][1])),10,(140,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[4][0]),int(tailpoints[4][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[4][0]),int(tailpoints[4][1])),10,(170,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[4][0]),int(tailpoints[4][1])),10,(120,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[5][0]),int(tailpoints[5][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[5][0]),int(tailpoints[5][1])),10,(160,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[5][0]),int(tailpoints[5][1])),10,(100,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[6][0]),int(tailpoints[6][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[6][0]),int(tailpoints[6][1])),10,(150,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[6][0]),int(tailpoints[6][1])),10,(80,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[7][0]),int(tailpoints[7][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[7][0]),int(tailpoints[7][1])),10,(140,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[7][0]),int(tailpoints[7][1])),10,(60,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[8][0]),int(tailpoints[8][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[8][0]),int(tailpoints[8][1])),10,(130,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[8][0]),int(tailpoints[8][1])),10,(40,0,0),-1)
     
     cv2.circle(frame,(int(tailpoints[9][0]),int(tailpoints[9][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[9][0]),int(tailpoints[9][1])),10,(120,0,0),-1)
+    cv2.circle(frame,(int(tailpoints[9][0]),int(tailpoints[9][1])),10,(20,0,0),-1)
     
-    tailpoints = tailpoints[:-1]
+    tailpoints = tailpoints[:-1] #Removes last tail point
 
 #Get the screen size
 screen = ctypes.windll.user32
@@ -214,6 +214,7 @@ kernel = numpy.ones((10,10), numpy.uint8)
 #Main loop
 while True:
     ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)
     hsvframe = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     
     #Set colors
@@ -231,7 +232,7 @@ while True:
     #Switch to HSV and clean mask
     mask = cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)
     mask = cv2.erode(mask, kernel, iterations=1)
-    mask = cv2.dilate(mask,kernel, iterations = 1)
+    mask = cv2.dilate(mask, kernel, iterations = 1)
     mk = cv2.moments(mask)
     
     #Find an image
