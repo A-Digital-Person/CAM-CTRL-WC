@@ -2,7 +2,7 @@
   <head>
     <title>CAM CTRL WC - Home</title>
     <link rel="icon" type="image/x-icon" href="/CAM-CTRL-WC/logo.png">
-    <iframe src="/CAM-CTRL-WC/navbar.html" seamless></iframe>
+    <div data-include="navbar"></div>
   </head>
   <body>
     <h1>Home</h1>
@@ -12,7 +12,7 @@
     $(function () {
       var includes = $('[data-include]')
         $.each(includes, function () {
-      var file = 'views/' + $(this).data('include') + '.html'
+      var file = '/CAM-CTRL-WC/' + $(this).data('include') + '.html'
         $(this).load(file)
       })
     })
