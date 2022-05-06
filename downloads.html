@@ -1,9 +1,22 @@
 <html>
   <head>
+    <script>
+      (() => {
+        const includes = document.getElementsByTagName('include');
+        [].forEach.call(includes, i => {
+          let filePath = i.getAttribute('src');
+          fetch(filePath).then(file => {
+            file.text().then(content => {
+                i.insertAdjacentHTML('afterend', content);
+                i.remove();
+            });
+          });
+        });
+      })();
+    </script>
     <title>CAM CTRL WC - Home</title>
     <link rel="icon" type="image/x-icon" href="/CAM-CTRL-WC/logo.png">
     <div data-include="navbar"></div>
-    <script>$("#includedContent").load("/CAM-CTRL-WC/navbar.html");</script>
   </head>
   <body>
     <h1>Home</h1>
