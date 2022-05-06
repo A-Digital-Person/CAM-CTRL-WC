@@ -11,8 +11,8 @@
   <script>
     $(function () {
       var includes = $('[data-include]')
-        $.each(includes, function () {
-      var file = '/CAM-CTRL-WC/' + $(this).data('include') + '.html'
+      $.each(includes, function () {
+        var file = '/CAM-CTRL-WC/' + $(this).data('include') + '.html'
         $(this).load(file)
       })
     })
