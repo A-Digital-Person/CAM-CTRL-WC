@@ -1,3 +1,7 @@
+5/6/22
+Notes.
+Put the files onto the RPI.
+
 5/5/22
 Wireing bot
 Clean some code.
