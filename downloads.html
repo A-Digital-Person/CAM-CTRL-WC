@@ -8,4 +8,13 @@
     <h1>Home</h1>
     <p>Nothing here yet. Try another page. ^</p>
   </body>
+  <script>
+    $(function () {
+      var includes = $('[data-include]')
+        $.each(includes, function () {
+      var file = 'views/' + $(this).data('include') + '.html'
+        $(this).load(file)
+      })
+    })
+  </script>
 </html>
