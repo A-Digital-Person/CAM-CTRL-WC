@@ -3,18 +3,18 @@
     <title>CAM CTRL WC - Home</title>
     <link rel="icon" type="image/x-icon" href="/CAM-CTRL-WC/logo.png">
     <div data-include="navbar"></div>
+    <script>
+      $(function () {
+       var includes = $('[data-include]')
+       $.each(includes, function () {
+         var file = '/CAM-CTRL-WC/' + $(this).data('include') + '.html'
+         $(this).load(file)
+        })
+      })
+    </script>
   </head>
   <body>
     <h1>Home</h1>
     <p>Nothing here yet. Try another page. ^</p>
   </body>
-  <script>
-    $(function () {
-      var includes = $('[data-include]')
-      $.each(includes, function () {
-        var file = '/CAM-CTRL-WC/' + $(this).data('include') + '.html'
-        $(this).load(file)
-      })
-    })
-  </script>
 </html>
