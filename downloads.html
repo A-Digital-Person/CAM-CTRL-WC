@@ -1,20 +1,40 @@
 <html>
   <head>
-    <script>
-      (() => {
-        const includes = document.getElementsByTagName('include');
-        [].forEach.call(includes, i => {
-          let filePath = i.getAttribute('src');
-          fetch(filePath).then(file => {
-            file.text().then(content => {
-                i.insertAdjacentHTML('afterend', content);
-                i.remove();
-            });
-          });
-        });
-      })();
-    </script>
-    <title>CAM CTRL WC - Home</title>
+    <style>
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      li a:hover {
+        background-color: #111;
+      }
+      
+      iframe{
+        border: none;
+      }
+    </style>
+    <ul>
+      <li><a href="/CAM-CTRL-WC">Home</a></li>
+      <li><a href="/CAM-CTRL-WC/downloads.html">Downloads</a></li>
+      <li><a href="/CAM-CTRL-WC/progresslogs.html">Progress Log</a></li>
+    </ul>
+    <title>CAM CTRL WC - Downloads</title>
     <link rel="icon" type="image/x-icon" href="/CAM-CTRL-WC/logo.png">
     <include src="navbar.html">Loading...</include>
   </head>
