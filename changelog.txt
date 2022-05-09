@@ -1,3 +1,7 @@
+5/9/22
+First test.
+Look at error: global /home/pi/opencv/modules/videoio/src/cap_gstreamer.cpp (935) open OpenCV | GStreamer warning: Cannot query video position: status=0, value=-1, duration=-1
+
 5/6/22
 Notes.
 Put the files onto the RPI.
