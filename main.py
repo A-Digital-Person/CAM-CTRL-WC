@@ -16,7 +16,7 @@ import numpy #Image data
 import os #File mangement
 import re #Clean Strings
 from datetime import datetime #Getting the date for logs
-import ctypes #Screen Size
+import sys #Kill code
 from Adafruit_MotorHAT import Adafruit_MotorHAT #Motor CTRL
 
 version = '0.0.1' #Code Version
@@ -32,7 +32,9 @@ log.write("STARTING CAM CTRL WC - " + str(version) + "...\n")
 log.close()
 
 #Sets up the tail
-tailpoints = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
+tailpointsx = [0,0,0,0,0,0,0,0,0,0]
+tailpointsy = [0,0,0,0,0,0,0,0,0,0]
+
 
 #Sets the max speed the motors will be allowed to move
 maxspeed = 100 #Range of 0 - 255
@@ -41,10 +43,6 @@ maxspeed = 100 #Range of 0 - 255
 hat = Adafruit_MotorHAT(addr=0x60)
 M1 = 3
 M2 = 4
-
-#Reduces the cam input size to process faster (prevent lag)
-def cutimg(camin):
-    return camin[::2, ::2]
 
 #Gets the x,y cords from the frame and find the way it should go
 def finddriection():
@@ -87,13 +85,14 @@ def estop():
 
 #Checks the state of a button and returns the output
 def testbutton(din, state): #din = pin and state = up or down
+    bstate = mech.read_pin(din)
     if state == 'down': #Check if switch is down
-        if din == True:
+        if bstate == True:
             output = True
         else:
             output = False
     elif state == 'up': #Check if switch is up
-        if din == False:
+        if bstate == False:
             output = True
         else:
             output =  False
@@ -190,31 +189,30 @@ def tail():
     tailpoints = tailpoints[:-1] #Removes last tail point
 
 #Get the screen size
-screen = ctypes.windll.user32
+#screen = ctypes.windll.user32
 #Reference = screen.GetSystemMetrics(0) | 0 = width 1 = height
 
 #Find a aviable camera
-cap = cv2.VideoCapture(0)
-if cap is None or not cap.isOpened():
-    cap = cv2.VideoCapture(1)
-    if cap is None or not cap.isOpened():
-        cap = cv2.VideoCapture(2)
-        if cap is None or not cap.isOpened():
-            pass
+# cap = cv2.VideoCapture(0)
+# if cap is None or not cap.isOpened():
+#     cap = cv2.VideoCapture(1)
+#     if cap is None or not cap.isOpened():
+#         cap = cv2.VideoCapture(2)
+#         if cap is None or not cap.isOpened():
+#             sys.exit
             
 cv2.namedWindow("Capture")
-cv2.resizeWindow("Capture", screen.GetSystemMetrics(0), screen.GetSystemMetrics(1))
-
-#Set the camera
-cap = cv2.VideoCapture(camport)
+cv2.resizeWindow("Capture", 300, 300)
 
 #Cleaning size
 kernel = numpy.ones((10,10), numpy.uint8)
 
+cap = cv2.VideoCapture(0)
 #Main loop
 while True:
     ret, frame = cap.read()
     frame = cv2.flip(frame, 1)
+    frame = frame[::3, ::3]
     hsvframe = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     
     #Set colors
@@ -226,8 +224,8 @@ while True:
     colorhigh = numpy.array(colorhigh, dtype = "uint8")
     
     #Find the color
-    mask = cv2.inRange(hsvframe, colorlow, colorhigh
-    mask = cv2.bitwise_or(hsvframe, hsvframe, mask = mask))
+    mask = cv2.inRange(hsvframe, colorlow, colorhigh)
+    mask = cv2.bitwise_or(hsvframe, hsvframe, mask = mask)
     
     #Switch to HSV and clean mask
     mask = cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)
@@ -240,7 +238,20 @@ while True:
         ctx = mk["m10"]/mk["m00"]
         cty = mk["m01"]/mk["m00"]
     else:
-        ctx = screen.GetSystemMetrics(0)/2 #If no color found place on the center of the screen so bot will stop
-        cty = screen.GetSystemMetrics(1)/2
+        ctx = 300 #If no color found place on the center of the screen so bot will stop
+        cty = 300
         
-    tailpoints = tailpoints.insert(0, [ctx,cty]) #adds point to tail
+    #try:
+    tailpointsx = tailpointsx.insert(0, int(ctx)) #adds point to tail
+    #except:
+    #    logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
+        
+    cv2.imshow("Capture", frame)
+    
+    keypress = cv2.waitKey(30)
+    
+    if keypress == 27:
+        break
+    
+cap.release()
+cv2.destroyAllWindows()
