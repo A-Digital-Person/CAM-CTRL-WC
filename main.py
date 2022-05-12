@@ -2,11 +2,6 @@
 #
 # Camera Controlled Wheelchair - (CAM CTRL WC)
 #
-# Information > https://a-digital-person.github.io/CAM-CTRL-WC
-# Project log > https://a-digital-person.github.io/CAM-CTRL-WC/progresslogs.html
-#
-# This project is expermental and should not be used (yet)
-#
 # /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 
 import cv2 #Image data
@@ -32,9 +27,11 @@ log.write("STARTING CAM CTRL WC - " + str(version) + "...\n")
 log.close()
 
 #Sets up the tail
-tailpointsx = [0,0,0,0,0,0,0,0,0,0]
-tailpointsy = [0,0,0,0,0,0,0,0,0,0]
+# tailpointsx = [0,0,0,0,0,0,0,0,0,0]
+# tailpointsy = [0,0,0,0,0,0,0,0,0,0]
 
+tailpointx = 0
+tailpointy = 0
 
 #Sets the max speed the motors will be allowed to move
 maxspeed = 100 #Range of 0 - 255
@@ -153,40 +150,44 @@ def path(use):
         logerror('Pathing error in direction "' + str(use) + '"')
         
 #Draws a cursor tail to show direction of travel
-def tail():
-    global tailpoints
-    
-    cv2.circle(frame,(int(tailpoints[0][0]),int(tailpoints[0][1])),12,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
-    cv2.circle(frame,(int(tailpoints[0][0]),int(tailpoints[0][1])),10,(255,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[1][0]),int(tailpoints[1][1])),12,(0,0,0),-1) #Starts the 'tail' part
-    cv2.circle(frame,(int(tailpoints[1][0]),int(tailpoints[1][1])),10,(220,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[2][0]),int(tailpoints[2][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[2][0]),int(tailpoints[2][1])),10,(200,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[3][0]),int(tailpoints[3][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[3][0]),int(tailpoints[3][1])),10,(140,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[4][0]),int(tailpoints[4][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[4][0]),int(tailpoints[4][1])),10,(120,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[5][0]),int(tailpoints[5][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[5][0]),int(tailpoints[5][1])),10,(100,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[6][0]),int(tailpoints[6][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[6][0]),int(tailpoints[6][1])),10,(80,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[7][0]),int(tailpoints[7][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[7][0]),int(tailpoints[7][1])),10,(60,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[8][0]),int(tailpoints[8][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[8][0]),int(tailpoints[8][1])),10,(40,0,0),-1)
-    
-    cv2.circle(frame,(int(tailpoints[9][0]),int(tailpoints[9][1])),12,(0,0,0),-1)
-    cv2.circle(frame,(int(tailpoints[9][0]),int(tailpoints[9][1])),10,(20,0,0),-1)
-    
-    tailpoints = tailpoints[:-1] #Removes last tail point
+# def tail():
+#     global tailpointx
+#     global tailpointy
+#     global frame
+#     
+#     print(frame)
+#     
+#     frame = cv2.circle(frame, (int(tailpointx),int(tailpointy)),6,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
+#     frame = cv2.circle(frame, (int(tailpointx),int(tailpointy)),5,(255,0,0),-1)
+#     
+# #     cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),6,(0,0,0),-1) #Starts the 'tail' part
+# #     cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),5,(220,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),5,(200,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),5,(140,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),5,(120,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),5,(100,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),5,(80,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),5,(60,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),5,(40,0,0),-1)
+# #     
+# #     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),6,(0,0,0),-1)
+# #     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),5,(20,0,0),-1)
+#     
+#     tailpoints = tailpoints[:-1] #Removes last tail point
 
 #Get the screen size
 #screen = ctypes.windll.user32
@@ -205,7 +206,7 @@ cv2.namedWindow("Capture")
 cv2.resizeWindow("Capture", 300, 300)
 
 #Cleaning size
-kernel = numpy.ones((10,10), numpy.uint8)
+kernel = numpy.ones((3,3), numpy.uint8)
 
 cap = cv2.VideoCapture(0)
 #Main loop
@@ -238,15 +239,31 @@ while True:
         ctx = mk["m10"]/mk["m00"]
         cty = mk["m01"]/mk["m00"]
     else:
-        ctx = 300 #If no color found place on the center of the screen so bot will stop
-        cty = 300
+        ctx = 320 #If no color found place on the center of the screen so bot will stop
+        cty = 240
         
-    #try:
-    tailpointsx = tailpointsx.insert(0, int(ctx)) #adds point to tail
-    #except:
-    #    logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
+    try:
+#         tailpointsx.insert(0, int(ctx)) #adds point to tail
+#         tailpointsy.insert(0, int(cty))
         
+        tailpointx = int(ctx)
+        tailpointy = int(cty)
+               
+        print(tailpointsx)
+        print(tailpointsy)
+        loginfo("Location: " + str(int(ctx)) + " | " + str(int(cty)))
+
+    except:
+        logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
+    
+#     tail()
+
+    cv2.circle(frame, (int(ctx),int(cty)),6,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
+    cv2.circle(frame, (int(ctx),int(cty)),5,(255,0,0),-1)
+ 
     cv2.imshow("Capture", frame)
+    
+    
     
     keypress = cv2.waitKey(30)
     
