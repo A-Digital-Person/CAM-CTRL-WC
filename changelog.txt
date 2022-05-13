@@ -1,11 +1,12 @@
 5/13/22
-Trying to get a circle to draw. (Part 3)
+Trying to draw a circle part 3. Finally working.
+Designed a mount for switches
 
 5/12/22
-Trying to get a circle to draw. (Part 2)
+Trying to draw a circle part 2.
 
 5/11/22
-Trying to get a circle to draw.
+Trying to draw a circle.
 
 5/10/22
 Implenting vision tracking.
