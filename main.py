@@ -26,12 +26,9 @@ log = open(loglocation, "w")
 log.write("STARTING CAM CTRL WC - " + str(version) + "...\n")
 log.close()
 
-#Sets up the tail
-# tailpointsx = [0,0,0,0,0,0,0,0,0,0]
-# tailpointsy = [0,0,0,0,0,0,0,0,0,0]
-
-tailpointx = 0
-tailpointy = 0
+# Sets up the tail
+tailpointsx = [0,0,0,0,0,0,0,0,0,0]
+tailpointsy = [0,0,0,0,0,0,0,0,0,0]
 
 #Sets the max speed the motors will be allowed to move
 maxspeed = 100 #Range of 0 - 255
@@ -78,7 +75,6 @@ def estop():
         rightM.run(hat.RELEASE)
     except:
         logwarn('Something went wrong. Be carefull!') #If something goes wrong in the motors let the user know to be carefull | Motors should not ever move
-        estop()
 
 #Checks the state of a button and returns the output
 def testbutton(din, state): #din = pin and state = up or down
@@ -150,44 +146,43 @@ def path(use):
         logerror('Pathing error in direction "' + str(use) + '"')
         
 #Draws a cursor tail to show direction of travel
-# def tail():
-#     global tailpointx
-#     global tailpointy
-#     global frame
+def tail():
+    global tailpointsx
+    global tailpointsy
+    global frame
+    
+#     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),12,(0,0,0),-1) #Starts the 'tail' part
+#     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),10,(20,0,0),-1)
+# 
+#     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),10,(0,0,0),-1)
+#     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),8,(40,0,0),-1)
 #     
-#     print(frame)
-#     
-#     frame = cv2.circle(frame, (int(tailpointx),int(tailpointy)),6,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
-#     frame = cv2.circle(frame, (int(tailpointx),int(tailpointy)),5,(255,0,0),-1)
-#     
-# #     cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),6,(0,0,0),-1) #Starts the 'tail' part
-# #     cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),5,(220,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),5,(200,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),5,(140,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),5,(120,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),5,(100,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),5,(80,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),5,(60,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[8]),int(tailpointsy[8])),5,(40,0,0),-1)
-# #     
-# #     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),6,(0,0,0),-1)
-# #     cv2.circle(frame, (int(tailpointsx[9]),int(tailpointsy[9])),5,(20,0,0),-1)
-#     
-#     tailpoints = tailpoints[:-1] #Removes last tail point
+#     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),10,(0,0,0),-1)
+#     cv2.circle(frame, (int(tailpointsx[7]),int(tailpointsy[7])),8,(60,0,0),-1)
+# 
+#     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),10,(0,0,0),-1)
+#     cv2.circle(frame, (int(tailpointsx[6]),int(tailpointsy[6])),8,(80,0,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),10,(0,0,0),-1)
+    cv2.circle(frame, (int(tailpointsx[5]),int(tailpointsy[5])),8,(0,42,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),10,(0,0,0),-1)
+    cv2.circle(frame, (int(tailpointsx[4]),int(tailpointsy[4])),8,(0,85,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),10,(0,0,0),-1)
+    cv2.circle(frame, (int(tailpointsx[3]),int(tailpointsy[3])),8,(0,127,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),10,(0,0,0),-1)
+    cv2.circle(frame, (int(tailpointsx[2]),int(tailpointsy[2])),8,(0,170,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),10,(0,0,0),-1)
+    cv2.circle(frame, (int(tailpointsx[1]),int(tailpointsy[1])),8,(0,212,0),-1)
+    
+    cv2.circle(frame, (int(tailpointsx[0]),int(tailpointsy[0])),10,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
+    cv2.circle(frame, (int(tailpointsx[0]),int(tailpointsy[0])),8,(255,0,0),-1)
+    
+    tailpointsx = tailpointsx[:-1]
+    tailpointsy = tailpointsy[:-1] #Removes last tail point
 
 #Get the screen size
 #screen = ctypes.windll.user32
@@ -212,8 +207,8 @@ cap = cv2.VideoCapture(0)
 #Main loop
 while True:
     ret, frame = cap.read()
-    frame = cv2.flip(frame, 1)
     frame = frame[::3, ::3]
+    frame = cv2.flip(frame, 1)
     hsvframe = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     
     #Set colors
@@ -243,23 +238,13 @@ while True:
         cty = 240
         
     try:
-#         tailpointsx.insert(0, int(ctx)) #adds point to tail
-#         tailpointsy.insert(0, int(cty))
-        
-        tailpointx = int(ctx)
-        tailpointy = int(cty)
-               
-        print(tailpointsx)
-        print(tailpointsy)
-        loginfo("Location: " + str(int(ctx)) + " | " + str(int(cty)))
-
+        tailpointsx.insert(0, int(ctx)) #adds point to tail
+        tailpointsy.insert(0, int(cty))
     except:
         logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
     
-#     tail()
-
-    cv2.circle(frame, (int(ctx),int(cty)),6,(0,0,0),-1) #Draws a dot onto the screen first a black and then a colored circle is drawn on top
-    cv2.circle(frame, (int(ctx),int(cty)),5,(255,0,0),-1)
+    tail()
+    path('forward')
  
     cv2.imshow("Capture", frame)
     
@@ -269,6 +254,7 @@ while True:
     
     if keypress == 27:
         break
-    
+
+estop()
 cap.release()
 cv2.destroyAllWindows()
