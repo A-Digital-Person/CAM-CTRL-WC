@@ -38,9 +38,18 @@ hat = Adafruit_MotorHAT(addr=0x60)
 M1 = 3
 M2 = 4
 
+leftM = hat.getMotor(M1)
+rightM = hat.getMotor(M2)
+
 #Gets the x,y cords from the frame and find the way it should go
-def finddriection():
-    pass
+def finddriection(x):
+    if x < 300:
+        return "arcleft"
+    elif 3 > 340:
+        return "arcright"
+    else:
+        return "forward"
+        
 
 #Next three functions print information to the log file for debugging
 #If something goes worng the file can be sent to devs to trbleshoot
@@ -212,8 +221,8 @@ while True:
     hsvframe = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     
     #Set colors
-    colorlow = [0,0,0] #HSV
-    colorhigh = [180,255,255]
+    colorlow = [20,0,0] #HSV
+    colorhigh = [30,255,255]
     
     #Set arrays
     colorlow = numpy.array(colorlow, dtype = "uint8")
@@ -236,6 +245,7 @@ while True:
     else:
         ctx = 320 #If no color found place on the center of the screen so bot will stop
         cty = 240
+
         
     try:
         tailpointsx.insert(0, int(ctx)) #adds point to tail
@@ -244,9 +254,10 @@ while True:
         logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
     
     tail()
-    path('forward')
+    path(finddriection(ctx))
  
     cv2.imshow("Capture", frame)
+    cv2.imshow("Mask", mask)
     
     
     
