@@ -13,6 +13,7 @@ import re #Clean Strings
 from datetime import datetime #Getting the date for logs
 import sys #Kill code
 from Adafruit_MotorHAT import Adafruit_MotorHAT #Motor CTRL
+import mechatronics as mech
 
 version = '0.0.1' #Code Version
 
@@ -42,13 +43,21 @@ leftM = hat.getMotor(M1)
 rightM = hat.getMotor(M2)
 
 #Gets the x,y cords from the frame and find the way it should go
-def finddriection(x):
-    if x < 220 - 50:
-        return "arcleft"
-    elif x > 220 + 50:
-        return "arcright"
-    else:
-        return "forward"
+def finddriection(x, way):
+    if way == 'forward':
+        if x < 220 - 50:
+            return "arcleft"
+        elif x > 220 + 50:
+            return "arcright"
+        else:
+            return "forward"
+    if way == 'backward':
+        if x < 220 - 50:
+            return "rarcleft"
+        elif x > 220 + 50:
+            return "rarcright"
+        else:
+            return "backward"
         
 
 #Next three functions print information to the log file for debugging
@@ -87,7 +96,7 @@ def estop():
 
 #Checks the state of a button and returns the output
 def testbutton(din, state): #din = pin and state = up or down
-    bstate = mech.read_pin(din)
+    bstate = mech.read_pin(din) == False
     if state == 'down': #Check if switch is down
         if bstate == True:
             output = True
@@ -269,12 +278,19 @@ while True:
     try:
         tailpointsx.insert(0, int(ctx)) #adds point to tail
         tailpointsy.insert(0, int(cty))
-        print(ctx)
     except:
         logerror("Tail failed to insert " + str(int(ctx)) + " | " + str(int(cty)))
     
     tail()
-    path(finddriection(ctx))
+    print(testbutton(25, 'down'))
+    print(testbutton(24, 'down'))
+    if testbutton(25, 'down'):
+        path(finddriection(ctx, 'forward'))
+    else:
+        if testbutton(24, 'down'):
+            path(finddriection(ctx, 'backward'))
+        else:
+            estop()
     
     #frame = cv2.addWeighted(frame, 1, cv2.imread('Arrows.png'),0.4,0)
  
