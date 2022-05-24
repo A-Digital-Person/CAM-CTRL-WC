@@ -1,3 +1,21 @@
+5/23/22
+Work on buttons.
+
+5/20/22
+Start working on buttons.
+
+5/19/22
+Tracking adjustments.
+
+5/18/22
+Getting the bot to move.
+
+5/17/22
+Color tracking.
+
+5/16/22
+Working on pathing.
+
 5/13/22
 Trying to draw a circle part 3. Finally working.
 Designed a mount for switches
